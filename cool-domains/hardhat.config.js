@@ -9,7 +9,8 @@ const ALCHEMY_URL = process.env.ALCHEMY_URL
 module.exports = {
   solidity: "0.8.10",
   networks: {
-    Velas_Testnet: {
+    Testnet: {
+      chainId : 111,
       url: ALCHEMY_URL,
       accounts: [PRIVATE_KEY]
     }

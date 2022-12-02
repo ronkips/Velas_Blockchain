@@ -440,7 +440,6 @@ const App = () => {
           <header>
             <div className="left">
               <p className="title">Welcome to Velas Name Service:</p>
-
             </div>
             <div className="right">
               <img
