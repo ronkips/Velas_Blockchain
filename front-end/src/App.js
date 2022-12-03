@@ -6,6 +6,8 @@ import contractAbi from "./domain.json";
 import ethLogo from "./assets/ethlogo.png";
 import velasLogo from "./assets/velas-logo.png";
 import { networks } from "./utils/networks";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Constants
 const TWITTER_HANDLE = "ronkips01";
@@ -47,6 +49,7 @@ const App = () => {
       console.log("Connected:", accounts[0]);
       setCurrentAccount(accounts[0]);
     } catch (error) {
+      toast.error("Error connecting to metamsask");
       console.log("There was an error connecting to the metamask", error);
     }
   };
@@ -118,6 +121,7 @@ const App = () => {
     if (accounts.length !== 0) {
       const account = accounts[0];
       console.log("Found an authorized account:", account);
+      // toast.success("Connected Successfully");
       setCurrentAccount(account);
     } else {
       console.log("Sorry, no authorized account found");
@@ -142,12 +146,14 @@ const App = () => {
     // Alert the user if the domain is too short
     if (domain.length < 3) {
       alert("sorry domain must be at least 3 characters long");
+      // toast.error("Domain must be atleast 3 characters long");
       return;
     }
     // Calculate price based on length of domain (change this to match your contract)
     const price =
       domain.length === 3 ? "0.005" : domain.length === 4 ? "0.003" : "0.001";
     console.log("Minting domain", domain, "with a price of", price, "ELt");
+    toast.info("Minting domain");
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -172,6 +178,7 @@ const App = () => {
             "Domain minted!: https://evmexplorer.testnet.velas.com/tx/" +
               tx.hash
           );
+          toast.info("Domain minted successfully");
 
           // Set the record for the domain
           tx = await contract.setRecord(domain, record);
@@ -180,6 +187,7 @@ const App = () => {
           console.log(
             "Record set!: https://evmexplorer.testnet.velas.com/tx/" + tx.hash
           );
+          toast.info("Record set successfully");
 
           // call fetchMint after 2 secs
           setTimeout(() => {
@@ -194,6 +202,7 @@ const App = () => {
       }
     } catch (error) {
       console.log("wah.. Sa utado???", error);
+      toast.error("Limited gas limit");
     }
   };
 
@@ -233,6 +242,7 @@ const App = () => {
       }
     } catch (error) {
       console.log("Wah??? Yo got an error", error);
+      // toast.error("Limited gas limit");
     }
   };
 
@@ -242,6 +252,7 @@ const App = () => {
       return;
     }
     setLoading(true);
+    toast.info("Updating Domain");
     console.log("Updating domain", domain, "with record", record);
     try {
       const { ethereum } = window;
@@ -259,6 +270,7 @@ const App = () => {
         console.log(
           "Record set ttps://explorer.testnet.velas.com/tx/" + tx.hash
         );
+        toast.success("Updated successfully");
 
         fetchMints();
         setRecord("");
@@ -476,6 +488,20 @@ const App = () => {
           >{`built with @${TWITTER_HANDLE}`}</a>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
 };
