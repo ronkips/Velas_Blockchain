@@ -412,19 +412,12 @@ const App = () => {
         )}
         {renderMints()}
 
-        {/* {mints.map((domain, i) => (
-          <div key={i}>
-            <div className="mint-list">{domain.name + ".VLX"}</div>
-          </div>
-        ))} */}
+
       </div>
     );
   };
 
-  // returning a function when the page loades
-  // useEffect(() => {
-  //   checkIfWalletIsConnected();
-  // }, []);
+
 
   // This will take us into edit mode and show us the edit buttons!
   const editRecord = (name) => {
@@ -500,7 +493,6 @@ const App = () => {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
       <ToastContainer />
     </div>
   );
